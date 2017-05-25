@@ -45,6 +45,10 @@ module OmniAuth
         options[:authorize_params].merge!(:force_verify => 'true')
         old_request_phase
       end
+      
+      def callback_url
+        full_host + script_name + callback_path
+      end
 
       def raw_info
         @raw_info ||= access_token.get('/kraken/user.json').parsed
