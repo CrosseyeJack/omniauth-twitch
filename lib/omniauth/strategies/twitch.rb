@@ -78,6 +78,12 @@ module OmniAuth
           params[:scope] = params[:scope] || DEFAULT_SCOPE
         end
       end
+
+      alias :old_request_phase :request_phase
+      def request_phase
+        options[:authorize_params].merge!(:force_verify => 'true')
+        old_request_phase
+      end
     end
   end
 end
